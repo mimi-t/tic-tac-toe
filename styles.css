@@ -1,0 +1,37 @@
+/*
+#F75850
+*/
+
+body {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    place-items: center;
+    background: #212738;
+    color: #F9F4F5;
+    font-family: "Work Sans", Helvetica, sans-serif;
+}
+
+header {
+    display: grid;
+    grid-row: 1;
+    padding: 40px;
+}
+
+h1 {
+    font-size: 52px;
+    font-weight: 600;
+}
+
+main {
+    display: grid;
+    grid-row: 2;
+}
+
+button {
+    padding: 5px 10px;
+    background: #F75850;
+    color: #F9F4F5;
+    border-style: none;
+    font-size: 20px;
+    font-weight: 600;
+}
