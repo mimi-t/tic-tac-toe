@@ -27,6 +27,27 @@ main {
     grid-row: 2;
 }
 
+.game-container {
+    display: grid;
+    grid-template-rows: repeat(3, 150px);
+    grid-template-columns: repeat(3, 150px);
+    row-gap: 6px;
+    column-gap: 6px;
+    background-color: #F9F4F5;
+}
+
+.game-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #212738;
+    font-size: 64px;
+}
+
+.game-cell img {
+    width: 60px;
+}
+
 button {
     padding: 5px 10px;
     background: #F75850;
