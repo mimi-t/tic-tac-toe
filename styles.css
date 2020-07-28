@@ -44,6 +44,10 @@ main {
     font-size: 64px;
 }
 
+.game-cell:hover {
+    cursor: pointer;
+}
+
 .game-cell img {
     width: 60px;
 }
