@@ -1,7 +1,3 @@
-/*
-#F75850
-*/
-
 body {
     display: grid;
     grid-template-rows: auto 1fr;
