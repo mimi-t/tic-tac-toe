@@ -5,6 +5,7 @@ body {
     background: #212738;
     color: #F9F4F5;
     font-family: "Work Sans", Helvetica, sans-serif;
+    font-size: 20px;
 }
 
 header {
@@ -18,7 +19,7 @@ h1 {
     font-weight: 600;
 }
 
-main {
+.content {
     display: grid;
     grid-row: 2;
 }
@@ -53,6 +54,41 @@ button {
     background: #F75850;
     color: #F9F4F5;
     border-style: none;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
+}
+
+.modal {
+    display: absolute;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(0,0,0,0.4);
+}
+
+#announce {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 360px;
+    margin: 10% auto;
+    padding: 10px;
+    color: #212738;
+    background: #F9F4F5;
+    font-size: 30px;
+    border-radius: 5px;
+}
+
+#announce > button {
+    margin-top: 30px;
+}
+
+.hidden {
+    display: none;
 }
