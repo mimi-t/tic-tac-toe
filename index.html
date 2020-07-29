@@ -10,6 +10,15 @@
         <header>
             <h1>TIC-TAC-TOE</h1>
         </header>
+        <div class="form-wrapper">
+            <form class="form-container">
+                <label for="player-one-name" class="form-label">Player 1 name:</label>
+                <input type="text" name="player-one-name" placeholder="Player 1">
+                <label for="player-two-name" class="form-label">Player 2 name:</label>
+                <input type="text" name="player-two-name" placeholder="Player 2">
+                <button type="submit" id="submit-form">Start</button>
+            </form>
+        </div>
         <div class="modal hidden">
             <div id="announce">
                 <p id="winner">X player wins</p>
@@ -17,10 +26,10 @@
             </div>
         </div>
         <main>
-            <div class="content">
+            <div class="content hidden">
                 <div class="players">
-                    <div id="player-one">Player One</div>
-                    <div id="player-two">Player Two</div>
+                    <div class="current-player" id="player-one">Player 1</div>
+                    <div id="player-two">Player 2</div>
                 </div>
                  <div class="game-container">
                 </div>      

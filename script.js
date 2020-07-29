@@ -1,4 +1,3 @@
-//TO DO: SHOWROUNDRESULT(), ANNOUNCE WINNER FOR 3 ROUNDS, consider altering game so that first player swaps every round
 //0 = empty
 //1 = O (playerOne)
 //2 = X (playerTwo)
@@ -7,12 +6,66 @@
 const Player = (name, mark) => {
     const getName = () => name;
     const getMark = () => mark;
-    return {getName, getMark};
+    const updateName = (newName) => name = newName;
+    return {getName, getMark, updateName};
 }
 
-const playerOne = Player('Player one', 1);
-const playerTwo = Player('Player two', 2);
+const Display = (() => {
+    //add event listeners for reset and play again buttons
+    const addReset = () =>{
+        const modal_div = document.querySelector('.modal');
+        const playAgain_button = document.querySelector('#announce > .reset');
+        const reset_button = document.querySelector('.button-wrapper > .reset');
+        
+        playAgain_button.addEventListener('click', e => {
+            Game.setNewRound();
+            modal_div.classList.toggle('hidden');
+        });
+        reset_button.addEventListener('click', e => {
+            Game.setNewRound();
+        });
+    }
 
+    //check name given is not empty/whitespace and returns default value if it is
+    const checkName = (name, num) => {
+        if (name.trim().length > 0) {
+            return name.trim();
+        } else {
+            return num === 1 ? 'Player 1' : 'Player 2';
+        }
+    }
+
+    //handles form submission,  
+    const submitForm = () => {
+        const playerName_form = document.querySelector('.form-container');
+        playerName_form.addEventListener('submit', e => {
+            event.preventDefault();
+            let playerOneName = checkName(playerName_form['player-one-name'].value, 1);
+            let playerTwoName = checkName(playerName_form['player-two-name'].value, 2);
+            playerOne.updateName(playerOneName);
+            playerTwo.updateName(playerTwoName);
+            document.querySelector('.form-wrapper').classList.toggle('hidden');
+            document.querySelector('.content').classList.toggle('hidden');
+        })
+    }
+
+    //toggle player underlined
+    const toggleUnderline = () => {
+        document.querySelector('#player-one').classList.toggle('current-player');
+        document.querySelector('#player-two').classList.toggle('current-player');
+    }
+
+    const setUpEvents = () => {
+        addReset();
+        submitForm();
+    }
+    return {setUpEvents, toggleUnderline};
+})();
+
+Display.setUpEvents();
+
+const playerOne = Player('Player 1', 1);
+const playerTwo = Player('Player 2', 2);
 
 //module for the game
 const Game = (() => {
@@ -38,7 +91,7 @@ const Game = (() => {
                         placeMark(e.currentTarget, currentPlayer);
                         updateArray(e.currentTarget.dataset.row, e.currentTarget.dataset.col, currentPlayer);
                         _currentRound++;
-                        
+                        Display.toggleUnderline();
                         //if there is a win or draw: updates scores, and announces winner/provides replay button
                         let winStatus = checkForWin();
                         if (checkForWin() !== 0){
@@ -145,22 +198,5 @@ const Game = (() => {
     return {renderGameboard, setNewRound};
 })(playerOne, playerTwo);
 
-const Display = (() => {
-    const addReset = () =>{
-        const modal_div = document.querySelector('.modal');
-        const playAgain_button = document.querySelector('#announce > .reset');
-        const reset_button = document.querySelector('.button-wrapper > .reset');
-        
-        playAgain_button.addEventListener('click', e => {
-            Game.setNewRound();
-            modal_div.classList.toggle('hidden');
-        });
-        reset_button.addEventListener('click', e => {
-            Game.setNewRound();
-        });
-    }
-    return {addReset};
-})();
 
-Display.addReset();
 Game.renderGameboard();

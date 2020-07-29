@@ -11,12 +11,49 @@ body {
 header {
     display: grid;
     grid-row: 1;
-    padding: 40px;
+    padding: 40px 10px;
 }
 
 h1 {
     font-size: 52px;
     font-weight: 600;
+}
+
+
+button {
+    padding: 5px 10px;
+    background: #E84C44;
+    color: #F9F4F5;
+    border-style: none;
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    margin: 40px auto;
+    padding: 30px 20px;
+    color: #212738;
+    background: #F9F4F5;
+    border-radius: 5px;
+}
+
+.form-container > label {
+    font-weight: 600;
+}
+
+.form-container > input {
+    margin: 5px 0px 20px 0px;
+    padding: 5px 5px;
+    font-size: 16px;
+    font-family: "Work Sans", Helvetica, sans-serif;
+}
+
+.form-container > button {
+    align-self: center;
 }
 
 .content {
@@ -28,13 +65,18 @@ h1 {
 .players {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    font-size: 24px;
+}
+
+.current-player {
+    border-bottom: 5px solid #E84C44;
 }
 
 .game-container {
     display: grid;
-    grid-template-rows: repeat(3, 150px);
-    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 110px);
+    grid-template-columns: repeat(3, 110px);
     row-gap: 6px;
     column-gap: 6px;
     background-color: #F9F4F5;
@@ -56,14 +98,10 @@ h1 {
     width: 60px;
 }
 
-button {
-    padding: 5px 10px;
-    background: #F75850;
-    color: #F9F4F5;
-    border-style: none;
-    font-size: 24px;
-    font-weight: 600;
-    cursor: pointer;
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
 }
 
 .modal {
