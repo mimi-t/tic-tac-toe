@@ -11,6 +11,9 @@ const Player = (name, mark) => {
 }
 
 const Display = (() => {
+    const playerOne_div = document.querySelector('#player-one');
+    const playerTwo_div = document.querySelector('#player-two');
+
     //add event listeners for reset and play again buttons
     const addReset = () =>{
         const modal_div = document.querySelector('.modal');
@@ -35,7 +38,7 @@ const Display = (() => {
         }
     }
 
-    //handles form submission,  
+    //handles form submission, create player objects with inputted names, hide the form, and show the game with the given player names
     const submitForm = () => {
         const playerName_form = document.querySelector('.form-container');
         playerName_form.addEventListener('submit', e => {
@@ -44,6 +47,8 @@ const Display = (() => {
             let playerTwoName = checkName(playerName_form['player-two-name'].value, 2);
             playerOne.updateName(playerOneName);
             playerTwo.updateName(playerTwoName);
+            playerOne_div.innerHTML = playerOneName;
+            playerTwo_div.innerHTML = playerTwoName;
             document.querySelector('.form-wrapper').classList.toggle('hidden');
             document.querySelector('.content').classList.toggle('hidden');
         })
@@ -51,15 +56,20 @@ const Display = (() => {
 
     //toggle player underlined
     const toggleUnderline = () => {
-        document.querySelector('#player-one').classList.toggle('current-player');
-        document.querySelector('#player-two').classList.toggle('current-player');
+        playerOne_div.classList.toggle('current-player');
+        playerTwo_div.classList.toggle('current-player');
+    }
+
+    const resetUnderline = () => {
+        playerOne_div.classList = 'current-player';
+        playerTwo_div.classList = '';
     }
 
     const setUpEvents = () => {
         addReset();
         submitForm();
     }
-    return {setUpEvents, toggleUnderline};
+    return {setUpEvents, toggleUnderline, resetUnderline};
 })();
 
 Display.setUpEvents();
@@ -193,6 +203,7 @@ const Game = (() => {
                 break;
         }
         modal_div.classList.toggle('hidden');
+        Display.resetUnderline();
     }
 
     return {renderGameboard, setNewRound};
