@@ -1,10 +1,21 @@
+//TO DO: SHOWROUNDRESULT(), ANNOUNCE WINNER FOR 3 ROUNDS, consider altering game so that first player swaps every round
 //0 = empty
 //1 = O (playerOne)
 //2 = X (playerTwo)
 
+//factory function for player
+const Player = (name, mark) => {
+    const getName = () => name;
+    const getMark = () => mark;
+    return {getName, getMark};
+}
+
+const playerOne = Player('Player one', 1);
+const playerTwo = Player('Player two', 2);
+
 
 //module for the game
-const Game = ((playerOne, playerTwo) => {
+const Game = (() => {
     const _gameContainer_div = document.querySelector('.game-container');
     let _gameboard = [[0,0,0], [0,0,0], [0,0,0]];
     let _playerOneWin = 0;
@@ -40,7 +51,7 @@ const Game = ((playerOne, playerTwo) => {
                                     _playerTwoWin++;
                                     break;
                             }
-                            showRoundResult();
+                            showRoundResult(winStatus);
                         } 
                     }
                 });
@@ -50,9 +61,10 @@ const Game = ((playerOne, playerTwo) => {
     };
 
     //clears the gameboard
-    const clearBoard = () => {
+    const setNewRound = () => {
         Array.from(_gameContainer_div.querySelectorAll('.game-cell')).forEach(cell => cell.innerHTML = '');
         _gameboard = [[0,0,0], [0,0,0], [0,0,0]];
+        _currentRound = 0;
     }
 
     //if player is 1 place circle, else place cross in given cell
@@ -112,32 +124,43 @@ const Game = ((playerOne, playerTwo) => {
     }
 
     //announce the round result and provide button to play another round
-    const showRoundResult = () => {
+    const showRoundResult = (winStatus) => {
         //toggle class hidden on div containing winner announcement with text edited to match winner/draw
-        clearBoard();
-    }
-    
-    //game loop WIP
-    const checkGameDone = () => {
-        if (_playerOneWin >= 3) {
-            return 1;
-        } else if (_playerTwoWin >= 3) {
-            return 2;
-        } else {
-            return 0;
+        const modal_div = document.querySelector('.modal');
+        const winner_p = document.querySelector('#winner');
+        switch (winStatus) {
+            case 1:
+                winner_p.innerHTML = `${playerOne.getName()} wins`;
+                break;
+            case 2:
+                winner_p.innerHTML = `${playerTwo.getName()} wins`;
+                break;
+            case -1:
+                winner_p.innerHTML = `It's a draw`;
+                break;
         }
+        modal_div.classList.toggle('hidden');
     }
-    return {renderGameboard};
+
+    return {renderGameboard, setNewRound};
+})(playerOne, playerTwo);
+
+const Display = (() => {
+    const addReset = () =>{
+        const modal_div = document.querySelector('.modal');
+        const playAgain_button = document.querySelector('#announce > .reset');
+        const reset_button = document.querySelector('.button-wrapper > .reset');
+        
+        playAgain_button.addEventListener('click', e => {
+            Game.setNewRound();
+            modal_div.classList.toggle('hidden');
+        });
+        reset_button.addEventListener('click', e => {
+            Game.setNewRound();
+        });
+    }
+    return {addReset};
 })();
 
-//factory function for player
-const Players = (name, mark) => {
-    const getName = () => name;
-    const getMark = () => mark;
-    return {getName, getMark};
-}
-
-
-const playerOne = Players('Player one', 1);
-const playerTwo = Players('Player two', 2);
-Game.renderGameboard(playerOne, playerTwo);
+Display.addReset();
+Game.renderGameboard();
